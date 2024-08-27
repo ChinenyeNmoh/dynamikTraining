@@ -18,7 +18,8 @@ const UsersScreen = () => {
       if (window.confirm('Are you sure')) {
         try {
           const res = await deleteUser(id).unwrap;
-          toast.success( res.message)
+          console.log(res.message || 'User deleted')
+          toast.success( res?.message)
           refetch();
         } catch (err) {
           toast.error(err?.data?.message || err.error);
@@ -47,8 +48,8 @@ const UsersScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
-                <tr key={user._id}>
+              {users.map((user, index) => (
+                <tr key={index}>
                   <td>{user._id.toString().substring(0,7)}</td>
                   <td>
                    

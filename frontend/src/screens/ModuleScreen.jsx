@@ -138,11 +138,16 @@ const togglePlayPause = () => {
       {(userError || updateError || error) && <Message variant="danger">{userError?.message || updateError?.message || error?.message}</Message>}
       <Row className='mb-5'>
         <Col>
-          {modules?.map((module) => (
+          {modules?.map((module, index) => (
             moduleView === module._id && (
-              <Card key={module._id} className="mt-4">
-                <Progress order={module.video.order} />
-                <p className="text-end fw-bold px-2">{module.video.order}/{modules.length} completed</p>
+              <Card key={index} className="mt-4">
+                <Progress order={module.video.order}  />
+                <div className='d-flex justify-content-between bg-light'>
+                  <p className='fst-italic py-3 fw-bold'>instruction: Watch the entire video to skip to the next module</p>
+                <p className="text-end fw-bold px-2 py-3 bg-light">{module.video.order}/{modules.length} completed</p>
+
+                </div>
+               
                 <Card.Header className="fw-bold text-center fs-2 py-5">
                     
                   {module.title}

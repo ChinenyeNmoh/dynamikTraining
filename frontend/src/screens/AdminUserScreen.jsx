@@ -51,8 +51,8 @@ const AdminUserScreen = () => {
                 </tr>
               </thead>
               <tbody>
-                {user?.completedModule.map((module) => (
-                  <tr key={user._id}>
+                {user?.completedModule.map((module, index) => (
+                  <tr key={index}>
                     <td>{module.video.order}</td>
                     <td>{module.title}</td>
                     <td>N{module.video.url}</td>

@@ -24,6 +24,7 @@ router.post('/forgotpassword', ensureGuest, forgotPassword);
 router.post('/login', ensureGuest, loginUser);
 router.get('/profile', protect, getUserProfile);
 router.get('/users', protect, ensureAdmin, getAllUsers);
+router.get('/logout', protect, logOut);
 router.get('/:id', protect, ensureAdmin, getUserById);
 router.get("/resetpassword/:id/:token", ensureGuest, validateId, resetPassword);
 router.get('/verify/:id/:token', validateId, verifyToken);
@@ -33,6 +34,6 @@ router.put('/updateprofile/:id', protect, updateUserProfile);
 
 router.delete('/:id', protect, ensureAdmin, deleteUser);
 
-router.get('/logout', protect, logOut);
+
 
 export default router;

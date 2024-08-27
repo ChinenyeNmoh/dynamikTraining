@@ -56,11 +56,13 @@ const userApiSlice = apiSlice.injectEndpoints({
             query: () => ({
               url: `${USERS_URL}/profile`,
             }),
+            providesTags:['User']
           }),
           getUsers: builder.query({
             query: () => ({
               url: `${USERS_URL}/users`,
             }),
+            providesTags:['User']
           }),
           getUserById: builder.query({
             query: (id) => ({
@@ -72,6 +74,7 @@ const userApiSlice = apiSlice.injectEndpoints({
               url: `${USERS_URL}/${id}`,
               method: 'DELETE',
             }),
+            invalidatesTags:['User']
           }),
     }),
 });

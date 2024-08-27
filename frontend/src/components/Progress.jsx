@@ -80,7 +80,7 @@ const Progress = ({ order }) => {
   }
 
   return (
-    <div className=''>
+    <div className='bg-light'>
       {progressElement}
       
     </div>
