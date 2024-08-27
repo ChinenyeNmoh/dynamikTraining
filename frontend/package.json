@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "proxy": "http://localhost:5000",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -15,6 +16,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
+    "dynamiktraining": "file:..",
     "html-react-parser": "^5.1.12",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
