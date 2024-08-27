@@ -56,6 +56,22 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
   }
 
+// Serve React frontend in production
+if (process.env.NODE_ENV === 'production') {
+  // Serve static files from the React app's build directory
+  app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+  // Serve index.html for any unknown routes
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, '../frontend', 'build', 'index.html'))
+  );
+} else {
+  // Serve a simple message for the root URL in development
+  app.get('/', (req, res) => {
+    res.send('API is running....');
+  });
+}
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
