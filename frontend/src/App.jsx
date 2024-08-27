@@ -17,7 +17,7 @@ function App() {
     <Header />  {/* Header is our custom header component */}
     <ToastContainer position="top-center" />
     <main className=''>
-      <Container className=''>
+      <Container className='min'>
         <Outlet />
       </Container>
     </main>
