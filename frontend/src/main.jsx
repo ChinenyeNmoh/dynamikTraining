@@ -34,7 +34,7 @@ import AdminUserScreen from './screens/AdminUserScreen.jsx'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />} >
-     <Route index element={<HomeScreen />} />
+     <Route index path='/' element={<HomeScreen />} />
       <Route path='*' element={<NotFoundScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
       <Route path='/login' element={<LoginScreen />} />
