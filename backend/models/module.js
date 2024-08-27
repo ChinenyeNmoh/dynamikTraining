@@ -18,7 +18,7 @@ const moduleSchema = new Schema({
           unique: true
         },
         duration: {
-          type: Number, // in seconds
+          type: Number,
           required: true,
         },
         order: {

@@ -70,7 +70,7 @@ const verifyToken = asyncHandler(async (req, res) => {
     const user = await User.findById(id);
   
     if (!user) {
-        return res.status(400).redirect(`http://localhost:3000/?error=${encodeURIComponent('User not found')}`);
+        return res.status(400).redirect(`https://dynamiktraining.onrender.com/?error=${encodeURIComponent('User not found')}`);
     }
   
     const userToken = await Token.findOne({
@@ -80,7 +80,7 @@ const verifyToken = asyncHandler(async (req, res) => {
     });
   
     if (!userToken) {
-        return res.status(400).redirect(`http://localhost:3000/?error=${encodeURIComponent('Expired or invalid token.')}`);
+        return res.status(400).redirect(`https://dynamiktraining.onrender.com/?error=${encodeURIComponent('Expired or invalid token.')}`);
     }
   
     // Token is valid, update the user and delete the token
@@ -91,7 +91,7 @@ const verifyToken = asyncHandler(async (req, res) => {
     );
   
     await Token.findByIdAndDelete(userToken._id);
-    res.status(200).redirect(`http://localhost:3000/login?message=${encodeURIComponent("Email verified successfully. you can login")}`);
+    res.status(200).redirect(`https://dynamiktraining.onrender.com/login?message=${encodeURIComponent("Email verified successfully. you can login")}`);
   });
 
 
@@ -230,7 +230,7 @@ const resetPassword = asyncHandler(async (req, res) => {
     const user = await User.findById(id);
   
     if (!user) {
-        return res.status(400).redirect(`http://localhost:3000/login?error=${encodeURIComponent('User not found')}`);
+        return res.status(400).redirect(`https://dynamiktraining.onrender.com/login?error=${encodeURIComponent('User not found')}`);
     }
   
     const userToken = await Token.findOne({
@@ -240,14 +240,14 @@ const resetPassword = asyncHandler(async (req, res) => {
     });
   
     if (!userToken) {
-        return res.status(400).redirect(`http://localhost:3000/login?error=${encodeURIComponent('Invalid or expired token')}`);
+        return res.status(400).redirect(`https://dynamiktraining.onrender.com/login?error=${encodeURIComponent('Invalid or expired token')}`);
     }
 
     // The TTL index will automatically remove expired tokens, but you can manually remove it after use
     await userToken.deleteOne();
 
     // Redirect to the password update page
-    return res.status(200).redirect(`http://localhost:3000/update/?id=${user._id}&message=${encodeURIComponent('Please update your password')}`);
+    return res.status(200).redirect(`https://dynamiktraining.onrender.com/update/?id=${user._id}&message=${encodeURIComponent('Please update your password')}`);
 });
 
 
@@ -334,10 +334,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
 const updateUserProfile = asyncHandler(async (req, res) => {
     try {
-        const userId = req.user._id;  // Use _id directly from req.user
+        const userId = req.user._id;  
         const { name, ModuleId, lastWatchedTime, completedModule: incomingModule } = req.body;
-
-        console.log('request', req.body);
 
         // Check if the user exists
         const user = await User.findById(userId);
@@ -347,10 +345,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
         // Update completedModule if an incoming module is provided
         if (incomingModule && !user.completedModule.includes(incomingModule)) {
-            console.log('Adding new module to completed array:', incomingModule);
             user.completedModule.push(incomingModule);
-        }else{
-            console.log('already in the completed array')
         }
 
         // Update user name if provided
@@ -360,7 +355,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
         // Update currentModule.moduleId if provided
         if (ModuleId) {
-            console.log('Updating user module ID:', ModuleId);
             user.currentModule.moduleId = ModuleId;
         }
 
@@ -369,14 +363,12 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             user.currentModule.lastWatchedTimestamp = lastWatchedTime;
         }
 
-        // Save the user and handle potential errors
+        // Save the user 
         await user.save();
-        console.log('user last time', user.currentModule.lastWatchedTimestamp);
 
+        // Convert the user object to a plain object and remove the password field
         const userObj = user.toObject();
         const { password, ...userWithoutPassword } = userObj;
-
-        
 
         // Return success response
         return res.status(200).json({
