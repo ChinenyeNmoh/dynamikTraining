@@ -47,10 +47,6 @@ app.get('/api/captcha', (req, res) =>
 );
 
 
-// error handling middleware
-app.use(notFound);
-app.use(errorHandler);
-
 // Logging using morgan middleware only if we are in development
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
@@ -73,6 +69,12 @@ if (process.env.NODE_ENV === 'production') {
     res.send('API is running....');
   });
 }
+
+
+
+// error handling middleware
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
